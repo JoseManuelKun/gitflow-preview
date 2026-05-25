@@ -1,0 +1,89 @@
+# Branch Model
+
+GitFlow Preview defines five branch categories.
+
+## `master`
+
+`master` is the production branch.
+
+Rules:
+
+- `master` MUST contain production-ready code.
+- `master` SHOULD be protected.
+- `master` SHOULD receive changes from `development` for normal releases.
+- `master` MAY receive changes from `hotfix/*` for urgent production fixes.
+- Deployments from `master` SHOULD target production.
+
+## `development`
+
+`development` is the stable integration branch.
+
+Rules:
+
+- `development` MUST contain accepted work for the next production release.
+- `development` SHOULD be protected by pull request review and CI checks.
+- `development` MUST receive accepted features from `feature/*`.
+- `development` MUST receive hotfixes from `hotfix/*`.
+- `development` MUST NOT receive merges from `preview`.
+
+## `preview`
+
+`preview` is the validation branch.
+
+Rules:
+
+- `preview` MUST be used for validation, QA, visual review, and client approval.
+- `preview` MAY receive work from `feature/*`.
+- `preview` MUST receive urgent fixes from `hotfix/*`.
+- `preview` MUST NOT be treated as canonical history.
+- `preview` MUST NOT be merged into `development`.
+- `preview` SHOULD be reset, rebuilt, or refreshed from known sources when needed.
+
+## `feature/*`
+
+`feature/*` branches isolate individual changes.
+
+Rules:
+
+- A feature branch SHOULD branch from `development`.
+- A feature branch MAY be merged into `preview` for validation.
+- An accepted feature branch MUST be merged into `development`.
+- A rejected feature branch MUST NOT be merged into `development`.
+- A feature branch SHOULD be deleted after it has been accepted, merged, and no longer needs validation.
+
+Example:
+
+```bash
+git checkout development
+git pull origin development
+git checkout -b feature/customer-report
+```
+
+## `hotfix/*`
+
+`hotfix/*` branches are used for urgent production corrections.
+
+Rules:
+
+- A hotfix branch SHOULD branch from `master`.
+- A hotfix MUST be merged into `master`.
+- A hotfix MUST be merged into `development`.
+- A hotfix MUST be merged into `preview`.
+- A hotfix SHOULD be tagged after release.
+
+Example:
+
+```bash
+git checkout master
+git pull origin master
+git checkout -b hotfix/login-timeout
+```
+
+## Branch Comparison
+
+| Workflow | Production Branch | Integration Branch | Preview Branch | Merge Discipline | Best For |
+| --- | --- | --- | --- | --- | --- |
+| GitFlow Preview | `master` | `development` | `preview` | Feature branches validate in `preview`, then merge separately into `development` | Teams with QA/client preview environments |
+| GitFlow | `master` | `develop` | None by default | Release branches coordinate production readiness | Scheduled release cycles |
+| GitHub Flow | `main` | None | Optional via deployments | Short-lived branches merge directly to main | Continuous deployment and small teams |
+| Trunk-Based Development | `main` | None | Optional via environment rules | Very short branches or direct trunk commits | High-automation teams with strong test suites |

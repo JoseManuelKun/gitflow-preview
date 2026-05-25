@@ -1,0 +1,44 @@
+name: Validate Pull Request Flow
+
+on:
+  pull_request:
+    branches:
+      - master
+      - development
+      - preview
+
+jobs:
+  validate-branch-flow:
+    name: Validate Pull Request Flow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch source and target
+        run: |
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          echo "Base branch: $BASE"
+          echo "Head branch: $HEAD"
+
+          if [[ "$BASE" == "development" && "$HEAD" == "preview" ]]; then
+            echo "Invalid flow: preview must not be merged into development."
+            exit 1
+          fi
+
+          if [[ "$BASE" == "development" && "$HEAD" != feature/* && "$HEAD" != bugfix/* && "$HEAD" != hotfix/* && "$HEAD" != docs/* && "$HEAD" != chore/* ]]; then
+            echo "Invalid flow: development only accepts feature/*, bugfix/*, hotfix/*, docs/* or chore/* branches."
+            exit 1
+          fi
+
+          if [[ "$BASE" == "preview" && "$HEAD" != feature/* && "$HEAD" != bugfix/* && "$HEAD" != hotfix/* && "$HEAD" != docs/* && "$HEAD" != chore/* ]]; then
+            echo "Invalid flow: preview only accepts feature/*, bugfix/*, hotfix/*, docs/* or chore/* branches."
+            exit 1
+          fi
+
+          if [[ "$BASE" == "master" && "$HEAD" != development && "$HEAD" != hotfix/* ]]; then
+            echo "Invalid flow: master only accepts development or hotfix/* branches."
+            exit 1
+          fi
+
+          echo "Branch flow is valid."

@@ -1,0 +1,76 @@
+name: GitFlow Preview CI/CD
+
+on:
+  push:
+    branches:
+      - master
+      - development
+      - preview
+      - "feature/**"
+      - "hotfix/**"
+  pull_request:
+    branches:
+      - master
+      - development
+      - preview
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  deploy-preview:
+    needs: test
+    if: github.ref == 'refs/heads/preview'
+    runs-on: ubuntu-latest
+    environment: preview
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy preview
+        run: ./scripts/deploy-preview.sh
+
+  deploy-staging:
+    needs: test
+    if: github.ref == 'refs/heads/development'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy staging
+        run: ./scripts/deploy-staging.sh
+
+  deploy-production:
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy production
+        run: ./scripts/deploy-production.sh

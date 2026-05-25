@@ -1,0 +1,57 @@
+image: node:20
+
+definitions:
+  steps:
+    - step: &test
+        name: Test
+        caches:
+          - node
+        script:
+          - npm ci
+          - npm run lint
+          - npm test
+          - npm run build
+
+    - step: &deploy-preview
+        name: Deploy Preview
+        deployment: preview
+        script:
+          - npm ci
+          - npm run build
+          - ./scripts/deploy-preview.sh
+
+    - step: &deploy-staging
+        name: Deploy Staging
+        deployment: staging
+        script:
+          - npm ci
+          - npm run build
+          - ./scripts/deploy-staging.sh
+
+    - step: &deploy-production
+        name: Deploy Production
+        deployment: production
+        script:
+          - npm ci
+          - npm run build
+          - ./scripts/deploy-production.sh
+
+pipelines:
+  branches:
+    "feature/*":
+      - step: *test
+
+    preview:
+      - step: *test
+      - step: *deploy-preview
+
+    development:
+      - step: *test
+      - step: *deploy-staging
+
+    master:
+      - step: *test
+      - step: *deploy-production
+
+    "hotfix/*":
+      - step: *test
