@@ -1,69 +1,39 @@
-%% GitFlow Preview main branch model.
-%% Styled as a timeline to resemble the classic GitFlow documentation diagrams.
-flowchart LR
-    subgraph legend[" "]
-        LM["master"]
-        LP["preview"]
-        LD["development"]
-        LF["feature/*"]
-        LH["hotfix/*"]
-    end
+%%{init: { "gitGraph": { "mainBranchName": "master", "mainBranchOrder": 0, "showCommitLabel": true, "rotateCommitLabel": false } }}%%
+gitGraph LR:
+    commit id: "initial" tag: "v1.0.0"
 
-    subgraph graph[" "]
-        direction LR
+    branch development order: 2
+    checkout development
+    commit id: "stable base"
 
-        M0((" "))
-        M1(("v1.0.0"))
-        M2(("v1.1.0"))
+    branch preview order: 1
+    checkout preview
+    commit id: "preview base"
 
-        D0((" "))
-        D1((" "))
-        D2((" "))
-        D3((" "))
+    checkout development
+    branch "feature/docs-diagrams" order: 3
+    checkout "feature/docs-diagrams"
+    commit id: "diagram work"
 
-        P0((" "))
-        P1((" "))
-        P2((" "))
-        P3((" "))
+    checkout preview
+    merge "feature/docs-diagrams" id: "validate" tag: "v1.0.1-preview.1"
 
-        F0((" "))
-        F1((" "))
-        F2((" "))
+    checkout development
+    merge "feature/docs-diagrams" id: "accept"
+    commit id: "release ready" tag: "v1.0.1-rc.1"
 
-        H0((" "))
-        H1((" "))
+    checkout master
+    merge development id: "release" tag: "v1.0.1"
 
-        M0 --- M1 --- M2
-        D0 --- D1 --- D2 --- D3
-        P0 --- P1 --- P2 --- P3
-        F0 --- F1 --- F2
-        H0 --- H1
+    branch "hotfix/urgent-fix" order: 4
+    checkout "hotfix/urgent-fix"
+    commit id: "urgent fix"
 
-        D0 -->|branch| F0
-        F1 -->|validate| P1
-        F2 -->|accept| D2
-        D3 -->|release| M2
+    checkout master
+    merge "hotfix/urgent-fix" id: "hotfix release" tag: "v1.0.2"
 
-        M1 -->|urgent fix| H0
-        H1 -->|merge| M2
-        H1 -->|merge| D3
-        H1 -->|merge| P3
+    checkout development
+    merge "hotfix/urgent-fix" id: "sync hotfix"
 
-        P2 -. "MUST NOT merge" .-> D3
-    end
-
-    classDef master fill:#b9e3f9,stroke:#333,stroke-width:2px,color:#111
-    classDef preview fill:#61d8d1,stroke:#333,stroke-width:2px,color:#111
-    classDef development fill:#b990e8,stroke:#333,stroke-width:2px,color:#111
-    classDef feature fill:#53c98f,stroke:#333,stroke-width:2px,color:#111
-    classDef hotfix fill:#f3a35c,stroke:#333,stroke-width:2px,color:#111
-    classDef hidden fill:transparent,stroke:transparent,color:transparent
-
-    class LM,M0,M1,M2 master
-    class LP,P0,P1,P2,P3 preview
-    class LD,D0,D1,D2,D3 development
-    class LF,F0,F1,F2 feature
-    class LH,H0,H1 hotfix
-    class legend hidden
-
-    linkStyle 19 stroke:#c62828,stroke-width:2px,stroke-dasharray:5 5,color:#7a1111
+    checkout preview
+    merge "hotfix/urgent-fix" id: "preview hotfix"

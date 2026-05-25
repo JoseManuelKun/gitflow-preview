@@ -1,52 +1,21 @@
-%% GitFlow Preview feature branch model.
-%% Styled as a timeline to resemble the classic GitFlow documentation diagrams.
-flowchart LR
-    subgraph legend[" "]
-        LP["preview"]
-        LD["development"]
-        LF["feature/*"]
+sequenceDiagram
+    autonumber
+    participant Dev as Developer
+    participant Development as development
+    participant Feature as feature/*
+    participant Preview as preview
+    participant QA as QA/Client
+
+    Dev->>Development: branch from stable integration
+    Development->>Feature: create feature/*
+    Dev->>Feature: commit changes
+    Feature->>Preview: merge for validation
+    Preview->>QA: deploy preview environment
+    QA-->>Dev: approve or request changes
+    alt Approved
+        Feature->>Development: merge accepted feature
+    else Changes requested
+        Dev->>Feature: update same feature branch
+        Feature->>Preview: merge updated feature for validation
     end
-
-    subgraph graph[" "]
-        direction LR
-
-        D0((" "))
-        D1((" "))
-        D2(("accepted"))
-        D3((" "))
-
-        P0((" "))
-        P1(("preview"))
-        P2(("QA"))
-        P3((" "))
-
-        F0((" "))
-        F1(("work"))
-        F2(("review"))
-        F3(("fixes"))
-        F4(("ready"))
-
-        D0 --- D1 --- D2 --- D3
-        P0 --- P1 --- P2 --- P3
-        F0 --- F1 --- F2 --- F3 --- F4
-
-        D0 -->|branch| F0
-        F2 -->|validate| P1
-        P2 -->|feedback| F3
-        F4 -->|validate again| P3
-        F4 -->|merge accepted feature| D2
-
-        P3 -. "MUST NOT merge" .-> D3
-    end
-
-    classDef preview fill:#61d8d1,stroke:#333,stroke-width:2px,color:#111
-    classDef development fill:#b990e8,stroke:#333,stroke-width:2px,color:#111
-    classDef feature fill:#53c98f,stroke:#333,stroke-width:2px,color:#111
-    classDef hidden fill:transparent,stroke:transparent,color:transparent
-
-    class LP,P0,P1,P2,P3 preview
-    class LD,D0,D1,D2,D3 development
-    class LF,F0,F1,F2,F3,F4 feature
-    class legend hidden
-
-    linkStyle 15 stroke:#c62828,stroke-width:2px,stroke-dasharray:5 5,color:#7a1111
+    Note over Preview,Development: preview MUST NOT merge into development

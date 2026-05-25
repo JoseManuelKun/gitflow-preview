@@ -1,16 +1,26 @@
-flowchart TD
-    M["master"] -->|branch| H["hotfix/*"]
-    H -->|merge urgent fix| M
-    H -->|merge fix forward| D["development"]
-    H -->|merge fix to validation| P["preview"]
-    M -->|tag release| T["vX.Y.Z"]
+%%{init: { "gitGraph": { "mainBranchName": "master", "mainBranchOrder": 0, "showCommitLabel": true, "rotateCommitLabel": false } }}%%
+gitGraph LR:
+    commit id: "production" tag: "v1.0.0"
 
-    classDef production fill:#eef7ff,stroke:#1b6ca8,color:#0f2f44
-    classDef validation fill:#fff7e6,stroke:#bd7b00,color:#4a2e00
-    classDef work fill:#f2f2f2,stroke:#666,color:#222
-    classDef tag fill:#edf7ed,stroke:#2e7d32,color:#143d17
+    branch development order: 2
+    checkout development
+    commit id: "next release"
 
-    class M,D production
-    class P validation
-    class H work
-    class T tag
+    checkout master
+    branch preview order: 1
+    checkout preview
+    commit id: "validation"
+
+    checkout master
+    branch "hotfix/login-timeout" order: 3
+    checkout "hotfix/login-timeout"
+    commit id: "fix timeout"
+
+    checkout master
+    merge "hotfix/login-timeout" id: "release fix" tag: "v1.0.1"
+
+    checkout development
+    merge "hotfix/login-timeout" id: "sync development"
+
+    checkout preview
+    merge "hotfix/login-timeout" id: "sync preview"
