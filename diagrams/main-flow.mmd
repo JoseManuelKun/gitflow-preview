@@ -1,17 +1,69 @@
+%% GitFlow Preview main branch model.
+%% Styled as a timeline to resemble the classic GitFlow documentation diagrams.
 flowchart LR
-    F["feature/*"] -->|validate| P["preview"]
-    F -->|accept| D["development"]
-    D -->|release| M["master"]
-    H["hotfix/*"] -->|production fix| M
-    H -->|sync fix| D
-    H -->|sync fix| P
-    P -. "MUST NOT merge" .-> D
+    subgraph legend[" "]
+        LM["master"]
+        LP["preview"]
+        LD["development"]
+        LF["feature/*"]
+        LH["hotfix/*"]
+    end
 
-    classDef source fill:#eef7ff,stroke:#1b6ca8,color:#0f2f44
-    classDef validation fill:#fff7e6,stroke:#bd7b00,color:#4a2e00
-    classDef work fill:#f2f2f2,stroke:#666,color:#222
-    classDef forbidden fill:#ffecec,stroke:#c62828,color:#7a1111,stroke-dasharray: 5 5
+    subgraph graph[" "]
+        direction LR
 
-    class M,D source
-    class P validation
-    class F,H work
+        M0((" "))
+        M1(("v1.0.0"))
+        M2(("v1.1.0"))
+
+        D0((" "))
+        D1((" "))
+        D2((" "))
+        D3((" "))
+
+        P0((" "))
+        P1((" "))
+        P2((" "))
+        P3((" "))
+
+        F0((" "))
+        F1((" "))
+        F2((" "))
+
+        H0((" "))
+        H1((" "))
+
+        M0 --- M1 --- M2
+        D0 --- D1 --- D2 --- D3
+        P0 --- P1 --- P2 --- P3
+        F0 --- F1 --- F2
+        H0 --- H1
+
+        D0 -->|branch| F0
+        F1 -->|validate| P1
+        F2 -->|accept| D2
+        D3 -->|release| M2
+
+        M1 -->|urgent fix| H0
+        H1 -->|merge| M2
+        H1 -->|merge| D3
+        H1 -->|merge| P3
+
+        P2 -. "MUST NOT merge" .-> D3
+    end
+
+    classDef master fill:#b9e3f9,stroke:#333,stroke-width:2px,color:#111
+    classDef preview fill:#61d8d1,stroke:#333,stroke-width:2px,color:#111
+    classDef development fill:#b990e8,stroke:#333,stroke-width:2px,color:#111
+    classDef feature fill:#53c98f,stroke:#333,stroke-width:2px,color:#111
+    classDef hotfix fill:#f3a35c,stroke:#333,stroke-width:2px,color:#111
+    classDef hidden fill:transparent,stroke:transparent,color:transparent
+
+    class LM,M0,M1,M2 master
+    class LP,P0,P1,P2,P3 preview
+    class LD,D0,D1,D2,D3 development
+    class LF,F0,F1,F2 feature
+    class LH,H0,H1 hotfix
+    class legend hidden
+
+    linkStyle 19 stroke:#c62828,stroke-width:2px,stroke-dasharray:5 5,color:#7a1111
