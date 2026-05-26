@@ -84,12 +84,14 @@ git checkout -b hotfix/login-timeout
 
 Diagrams and workflow descriptions SHOULD show only the branches that participate in the specific flow being explained.
 
+The `diagrams/gitgraph/` directory contains branch-history examples. The `diagrams/sequences/` directory contains process examples. Each directory includes one feature-flow diagram and one hotfix-flow diagram.
+
 Recommended interaction boundaries:
 
 | Branch | Interacts With | Notes |
 | --- | --- | --- |
 | `master` | `development`, `hotfix/*` | Receives normal releases from `development` and validated urgent fixes from `hotfix/*`. |
-| `development` | `feature/*`, `hotfix/*`, `master` | Receives accepted features and synchronized hotfixes; releases to `master`. |
+| `development` | `feature/*`, `hotfix/*` | Receives accepted features and synchronized hotfixes. |
 | `preview` | `feature/*`, `hotfix/*` | Receives validation merges only. It does not merge into `development` or `master`. |
 | `feature/*` | `preview`, `development` | Validates in `preview`, then integrates into `development` when accepted. |
 | `hotfix/*` | `preview`, `development`, `master` | Branches from `master`, validates in `preview`, synchronizes into `development`, then releases to `master`. |

@@ -56,9 +56,17 @@ Hotfixes SHOULD be validated in `preview` before they are synchronized into `dev
 
 ## Diagrams
 
-- [Main Flow](diagrams/main-flow.mmd)
-- [Feature Flow](diagrams/feature-flow.mmd)
-- [Hotfix Flow](diagrams/hotfix-flow.mmd)
+GitFlow Preview provides Git graph and sequence diagram examples for the two main branch flows: feature delivery and validated hotfixes.
+
+Git graphs:
+
+- [Feature Flow Git Graph](diagrams/gitgraph/feature-flow.mmd)
+- [Hotfix Flow Git Graph](diagrams/gitgraph/hotfix-flow.mmd)
+
+Sequence diagrams:
+
+- [Feature Flow Sequence](diagrams/sequences/feature-flow.mmd)
+- [Hotfix Flow Sequence](diagrams/sequences/hotfix-flow.mmd)
 
 ## CI/CD Examples
 

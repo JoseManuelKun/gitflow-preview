@@ -1,0 +1,20 @@
+%%{init: { "theme": "base", "themeVariables": { "git0": "#b990e8", "git1": "#61d8d1", "git2": "#53c98f", "gitBranchLabel0": "#111111", "gitBranchLabel1": "#111111", "gitBranchLabel2": "#111111", "commitLabelColor": "#111111", "commitLabelBackground": "#ffffff", "primaryTextColor": "#111111" }, "gitGraph": { "mainBranchName": "development", "mainBranchOrder": 0, "showCommitLabel": true, "rotateCommitLabel": false } }}%%
+gitGraph LR:
+    commit id: "stable base"
+
+    branch preview order: 1
+    checkout preview
+    commit id: "preview base"
+
+    checkout development
+    branch "feature/docs-diagrams" order: 2
+    checkout "feature/docs-diagrams"
+    commit id: "feature work"
+    commit id: "review ready"
+
+    checkout preview
+    merge "feature/docs-diagrams" id: "validate feature" tag: "v1.1.0-preview.1"
+
+    checkout development
+    merge "feature/docs-diagrams" id: "accept feature"
+    commit id: "release candidate" tag: "v1.1.0-rc.1"
