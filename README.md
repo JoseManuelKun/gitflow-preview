@@ -56,7 +56,7 @@ Hotfixes SHOULD be validated in `preview` before they are synchronized into `dev
 
 ## Diagrams
 
-GitFlow Preview provides Git graph and sequence diagram examples for the two main branch flows: feature delivery and validated hotfixes.
+GitFlow Preview provides Git graph and sequence diagram examples for feature delivery, validated hotfixes, and production releases.
 
 Git graphs:
 
