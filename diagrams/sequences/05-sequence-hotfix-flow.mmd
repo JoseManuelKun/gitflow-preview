@@ -1,0 +1,29 @@
+%%{init: { "theme": "base", "themeVariables": { "actorBkg": "#ffffff", "actorBorder": "#333333", "actorTextColor": "#111111", "signalColor": "#333333", "signalTextColor": "#111111", "noteBkgColor": "#ffffff", "noteTextColor": "#111111" } }}%%
+sequenceDiagram
+    autonumber
+
+    box rgba(185, 227, 249, 0.5) master
+        participant master as master
+    end
+    box rgba(241, 116, 95, 0.5) hotfix/login-timeout
+        participant hotfix as hotfix/login-timeout
+    end
+    box rgba(185, 144, 232, 0.5) development
+        participant development as development
+    end
+    box rgba(97, 216, 209, 0.5) preview
+        participant preview as preview
+    end
+    master-->>master: production tag<br/>v1.0.0
+
+    master->>hotfix: new branch<br/>hotfix/login-timeout
+    hotfix->>hotfix: urgent fix
+    hotfix->>hotfix: fix ready
+    hotfix->>preview: merge for approval
+
+    preview-->>preview: deploy preview build
+    preview-->>hotfix: approve hotfix <br/>v1.0.1-preview.1
+
+    hotfix->>development: sync hotfix
+    hotfix->>master: release hotfix
+    master-->>master: tag v1.0.1

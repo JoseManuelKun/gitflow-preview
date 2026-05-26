@@ -62,7 +62,9 @@ git push origin master
 git push origin v1.1.0
 ```
 
-## Preview Build Tag
+## Approved Preview Tag
+
+Create preview tags only after the preview state has been approved. Do not tag every push to `preview`.
 
 ```bash
 git checkout preview

@@ -84,7 +84,7 @@ git checkout -b hotfix/login-timeout
 
 Diagrams and workflow descriptions SHOULD show only the branches that participate in the specific flow being explained.
 
-The `diagrams/gitgraph/` directory contains branch-history examples. The `diagrams/sequences/` directory contains process examples. Each directory includes one feature-flow diagram and one hotfix-flow diagram.
+The `diagrams/gitgraph/` directory contains branch-history examples. The `diagrams/sequences/` directory contains process examples. Diagram filenames are numbered in README order and include their diagram type, such as `01-gitgraph-feature-flow.mmd` and `04-sequence-feature-flow.mmd`.
 
 Recommended interaction boundaries:
 

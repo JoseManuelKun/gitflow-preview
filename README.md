@@ -60,13 +60,15 @@ GitFlow Preview provides Git graph and sequence diagram examples for the two mai
 
 Git graphs:
 
-- [Feature Flow Git Graph](diagrams/gitgraph/feature-flow.mmd)
-- [Hotfix Flow Git Graph](diagrams/gitgraph/hotfix-flow.mmd)
+- [Feature Flow Git Graph](diagrams/gitgraph/01-gitgraph-feature-flow.mmd)
+- [Hotfix Flow Git Graph](diagrams/gitgraph/02-gitgraph-hotfix-flow.mmd)
+- [Production Release Git Graph](diagrams/gitgraph/03-gitgraph-production-release.mmd)
 
 Sequence diagrams:
 
-- [Feature Flow Sequence](diagrams/sequences/feature-flow.mmd)
-- [Hotfix Flow Sequence](diagrams/sequences/hotfix-flow.mmd)
+- [Feature Flow Sequence](diagrams/sequences/04-sequence-feature-flow.mmd)
+- [Hotfix Flow Sequence](diagrams/sequences/05-sequence-hotfix-flow.mmd)
+- [Production Release Sequence](diagrams/sequences/06-sequence-production-release.mmd)
 
 ## CI/CD Examples
 

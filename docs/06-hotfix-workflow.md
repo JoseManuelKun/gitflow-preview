@@ -42,6 +42,8 @@ git push origin preview
 
 This deploys the hotfix to the preview environment for QA, smoke testing, or stakeholder validation.
 
+If the hotfix passes validation, teams MAY create a preview tag from `preview`, such as `v1.0.1-preview.1`. This tag SHOULD represent an approved validation state, not merely a push to `preview`.
+
 ## Merge Back to Development
 
 ```bash

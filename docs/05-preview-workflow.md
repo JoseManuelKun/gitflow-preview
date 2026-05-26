@@ -80,6 +80,18 @@ Recommended environment names:
 
 The environment SHOULD be isolated from production data unless explicit data governance rules allow sanitized replicas.
 
+## Preview Tags
+
+Teams SHOULD create preview tags only for approved validation states.
+
+Preview tags SHOULD NOT be created for every push to `preview`. A push to `preview` updates the validation environment; a preview tag marks a reviewed and approved validation state.
+
+Example:
+
+```text
+v1.1.0-preview.1
+```
+
 ## Acceptance Rule
 
 When work is approved in preview, merge the original feature branch into `development`.
