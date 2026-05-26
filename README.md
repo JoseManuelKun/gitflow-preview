@@ -26,9 +26,9 @@ The approved merge paths are:
 feature/*   -> preview
 feature/*   -> development
 development -> master
-hotfix/*    -> master
-hotfix/*    -> development
 hotfix/*    -> preview
+hotfix/*    -> development
+hotfix/*    -> master
 ```
 
 The prohibited merge path is:
@@ -38,6 +38,8 @@ preview -> development
 ```
 
 `preview` MAY receive feature branches for validation, but it MUST NOT be treated as canonical history. If a feature is accepted, the same `feature/*` branch MUST be merged into `development`.
+
+Hotfixes SHOULD be validated in `preview` before they are synchronized into `development` and released through `master`. For critical incidents, teams MAY release a hotfix to `master` first when production impact requires immediate action.
 
 ## Documentation
 

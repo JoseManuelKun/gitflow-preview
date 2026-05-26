@@ -11,7 +11,7 @@ Rules:
 - `master` MUST contain production-ready code.
 - `master` SHOULD be protected.
 - `master` SHOULD receive changes from `development` for normal releases.
-- `master` MAY receive changes from `hotfix/*` for urgent production fixes.
+- `master` MAY receive changes from `hotfix/*` for urgent production fixes after validation.
 - Deployments from `master` SHOULD target production.
 
 ## `development`
@@ -66,9 +66,10 @@ git checkout -b feature/customer-report
 Rules:
 
 - A hotfix branch SHOULD branch from `master`.
-- A hotfix MUST be merged into `master`.
-- A hotfix MUST be merged into `development`.
-- A hotfix MUST be merged into `preview`.
+- A hotfix SHOULD be merged into `preview` first for validation.
+- A hotfix SHOULD be merged into `development` after validation.
+- A hotfix MUST be merged into `master` for production release.
+- A hotfix MAY be merged into `master` before `preview` and `development` only for critical production incidents.
 - A hotfix SHOULD be tagged after release.
 
 Example:
@@ -78,6 +79,20 @@ git checkout master
 git pull origin master
 git checkout -b hotfix/login-timeout
 ```
+
+## Branch Interaction Model
+
+Diagrams and workflow descriptions SHOULD show only the branches that participate in the specific flow being explained.
+
+Recommended interaction boundaries:
+
+| Branch | Interacts With | Notes |
+| --- | --- | --- |
+| `master` | `development`, `hotfix/*` | Receives normal releases from `development` and validated urgent fixes from `hotfix/*`. |
+| `development` | `feature/*`, `hotfix/*`, `master` | Receives accepted features and synchronized hotfixes; releases to `master`. |
+| `preview` | `feature/*`, `hotfix/*` | Receives validation merges only. It does not merge into `development` or `master`. |
+| `feature/*` | `preview`, `development` | Validates in `preview`, then integrates into `development` when accepted. |
+| `hotfix/*` | `preview`, `development`, `master` | Branches from `master`, validates in `preview`, synchronizes into `development`, then releases to `master`. |
 
 ## Branch Comparison
 

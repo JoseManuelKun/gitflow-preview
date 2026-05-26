@@ -18,9 +18,9 @@ This example shows how GitFlow Preview can map branches to AWS Elastic Beanstalk
 feature/*   -> preview       -> app-preview
 feature/*   -> development   -> app-staging
 development -> master        -> app-production
-hotfix/*    -> master        -> app-production
-hotfix/*    -> development   -> app-staging
 hotfix/*    -> preview       -> app-preview
+hotfix/*    -> development   -> app-staging
+hotfix/*    -> master        -> app-production
 ```
 
 ## Example GitHub Actions Deployment Step

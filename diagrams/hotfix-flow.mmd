@@ -2,25 +2,25 @@
 gitGraph LR:
     commit id: "production" tag: "v1.0.0"
 
+    branch preview order: 1
+    checkout preview
+    commit id: "validation base"
+
+    checkout master
     branch development order: 2
     checkout development
     commit id: "next release"
-
-    checkout master
-    branch preview order: 1
-    checkout preview
-    commit id: "validation"
 
     checkout master
     branch "hotfix/login-timeout" order: 3
     checkout "hotfix/login-timeout"
     commit id: "fix timeout"
 
-    checkout master
-    merge "hotfix/login-timeout" id: "release fix" tag: "v1.0.1"
+    checkout preview
+    merge "hotfix/login-timeout" id: "validate fix" tag: "v1.0.1-preview.1"
 
     checkout development
-    merge "hotfix/login-timeout" id: "sync development"
+    merge "hotfix/login-timeout" id: "sync fix"
 
-    checkout preview
-    merge "hotfix/login-timeout" id: "sync preview"
+    checkout master
+    merge "hotfix/login-timeout" id: "release fix" tag: "v1.0.1"

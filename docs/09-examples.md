@@ -91,19 +91,20 @@ git add .
 git commit -m "Fix login error"
 git push -u origin hotfix/fix-login-error
 
-git checkout master
+git checkout preview
+git pull origin preview
 git merge --no-ff hotfix/fix-login-error
-git push origin master
+git push origin preview
 
 git checkout development
 git pull origin development
 git merge --no-ff hotfix/fix-login-error
 git push origin development
 
-git checkout preview
-git pull origin preview
+git checkout master
+git pull origin master
 git merge --no-ff hotfix/fix-login-error
-git push origin preview
+git push origin master
 ```
 
 ## Prohibited Merge

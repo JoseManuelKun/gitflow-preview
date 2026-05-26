@@ -6,6 +6,7 @@ gitGraph LR:
     checkout development
     commit id: "stable base"
 
+    checkout master
     branch preview order: 1
     checkout preview
     commit id: "preview base"
@@ -16,11 +17,11 @@ gitGraph LR:
     commit id: "diagram work"
 
     checkout preview
-    merge "feature/docs-diagrams" id: "validate" tag: "v1.0.1-preview.1"
+    merge "feature/docs-diagrams" id: "validate feature" tag: "v1.0.1-preview.1"
 
     checkout development
-    merge "feature/docs-diagrams" id: "accept"
-    commit id: "release ready" tag: "v1.0.1-rc.1"
+    merge "feature/docs-diagrams" id: "accept feature"
+    commit id: "release candidate" tag: "v1.0.1-rc.1"
 
     checkout master
     merge development id: "release" tag: "v1.0.1"
@@ -29,11 +30,11 @@ gitGraph LR:
     checkout "hotfix/urgent-fix"
     commit id: "urgent fix"
 
-    checkout master
-    merge "hotfix/urgent-fix" id: "hotfix release" tag: "v1.0.2"
+    checkout preview
+    merge "hotfix/urgent-fix" id: "validate hotfix" tag: "v1.0.2-preview.1"
 
     checkout development
     merge "hotfix/urgent-fix" id: "sync hotfix"
 
-    checkout preview
-    merge "hotfix/urgent-fix" id: "preview hotfix"
+    checkout master
+    merge "hotfix/urgent-fix" id: "release hotfix" tag: "v1.0.2"
