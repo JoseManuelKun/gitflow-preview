@@ -1,0 +1,20 @@
+%%{init: { "theme": "base", "themeVariables": { "git0": "#b9e3f9", "git1": "#b990e8", "git2": "#53c98f", "gitBranchLabel0": "#111111", "gitBranchLabel1": "#111111", "gitBranchLabel2": "#111111", "commitLabelColor": "#111111", "commitLabelBackground": "#ffffff", "primaryTextColor": "#111111", "tagLabelFontSize": "10px" }, "gitGraph": { "mainBranchName": "master", "mainBranchOrder": 0, "showCommitLabel": true, "rotateCommitLabel": false } }}%%
+gitGraph LR:
+    commit id: "production" tag: "v1.0.0"
+
+    branch development order: 2
+    checkout development
+    commit id: "stable base"
+
+    branch "feature/report-export" order: 3
+    checkout "feature/report-export"
+    commit id: "feature work"
+    commit id: "ready for release"
+
+    checkout development
+    merge "feature/report-export" id: "accepted feature"
+    commit id: "release candidate" tag: "v1.1.0-rc.1"
+
+    checkout master
+    merge development id: "release"
+    commit id: "production version" tag: "v1.1.0"

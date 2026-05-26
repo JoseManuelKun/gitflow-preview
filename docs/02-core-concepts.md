@@ -19,7 +19,7 @@ The `preview` branch exists to deploy a version of the application that QA, clie
 
 - One feature under review.
 - Several features under review.
-- A hotfix that must also be visible before or after release.
+- A hotfix that must be validated before production release.
 - Temporary validation commits created by CI/CD automation, if the team allows them.
 
 `preview` MUST NOT be used as the basis for stable integration.
@@ -40,13 +40,15 @@ The `master` branch MUST represent production-ready code. Teams MAY choose manua
 
 Urgent production defects are handled with `hotfix/*` branches.
 
-A hotfix MUST be merged into:
+A hotfix SHOULD be merged in this order:
 
-- `master`
-- `development`
-- `preview`
+```text
+hotfix/* -> preview
+hotfix/* -> development
+hotfix/* -> master
+```
 
-This keeps production fixed, future integration current, and preview aligned with the emergency correction.
+This validates the urgent correction before production, keeps future integration current, and releases to production only after the fix is confirmed. For critical incidents, teams MAY merge a hotfix into `master` first when production impact requires immediate action.
 
 ## Normative Rules
 

@@ -49,13 +49,15 @@ development -> master
 
 ## Where do hotfixes go?
 
-Hotfixes MUST be merged into:
+Hotfixes SHOULD be validated before production release:
 
 ```text
-hotfix/* -> master
-hotfix/* -> development
 hotfix/* -> preview
+hotfix/* -> development
+hotfix/* -> master
 ```
+
+For critical production incidents, teams MAY release a hotfix to `master` first when immediate production impact requires it.
 
 ## Can this workflow use pull requests?
 
