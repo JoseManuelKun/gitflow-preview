@@ -1,6 +1,6 @@
 # Versioning
 
-GitFlow Preview recommends Semantic Versioning for production releases and pre-release identifiers for preview and release-candidate builds.
+GitFlow Preview recommends Semantic Versioning for production releases and pre-release identifiers for approved preview validations and release-candidate builds.
 
 ## Semantic Versioning
 
@@ -20,7 +20,7 @@ v1.1.0
 
 ## Preview Versions
 
-Preview builds MAY use the `preview` pre-release identifier.
+Approved preview validations MAY use the `preview` pre-release identifier.
 
 Example:
 
@@ -29,9 +29,11 @@ v1.1.0-preview.1
 v1.1.0-preview.2
 ```
 
-Preview versions SHOULD be generated from the `preview` branch or from CI metadata associated with preview deployments.
+Preview versions SHOULD be created only after a validation state has been approved by QA, product, client review, or another team-defined approval gate.
 
-Preview versions MUST NOT imply that `preview` is a release source. They identify validation builds only.
+Preview versions SHOULD NOT be created for every push to `preview`.
+
+Preview versions MUST NOT imply that `preview` is a release source. They identify approved validation states only.
 
 ## Release Candidates
 
@@ -44,7 +46,7 @@ v1.1.0-rc.1
 v1.1.0-rc.2
 ```
 
-Release candidates SHOULD be based on `development` after the intended release scope has been accepted.
+Release candidates SHOULD be based on `development` after the intended release scope has been accepted and is stable enough for release-candidate review.
 
 ## Production Tags
 
@@ -64,12 +66,13 @@ git push origin v1.1.0
 | Version | Source | Meaning |
 | --- | --- | --- |
 | `v1.0.0` | `master` | Production release. |
-| `v1.1.0-preview.1` | `preview` | Preview validation build. |
+| `v1.1.0-preview.1` | `preview` | Approved preview validation. |
 | `v1.1.0-rc.1` | `development` | Release candidate. |
 
 ## Rules
 
+- Tags SHOULD identify approved or formal states, not every push.
 - Production tags MUST be created from `master`.
-- Preview identifiers MAY be created from `preview`.
+- Preview tags SHOULD be created from `preview` only after validation approval.
 - Release candidates SHOULD be created from `development`.
 - Preview tags MUST NOT be promoted directly to production unless the underlying commits have reached `development` and then `master` through the approved flow.

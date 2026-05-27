@@ -20,9 +20,9 @@ Contributors MUST follow the documented workflow:
 feature/*   -> preview
 feature/*   -> development
 development -> master
-hotfix/*    -> master
-hotfix/*    -> development
 hotfix/*    -> preview
+hotfix/*    -> development
+hotfix/*    -> master
 ```
 
 Blocked flows:
@@ -64,6 +64,16 @@ Pull requests SHOULD target the branch that matches their purpose:
 | `preview` | `feature/*`, `bugfix/*`, `hotfix/*`, `docs/*`, `chore/*` | Validation, QA, client review, and documentation preview. |
 | `development` | `feature/*`, `bugfix/*`, `hotfix/*`, `docs/*`, `chore/*` | Accepted stable integration. |
 | `master` | `development`, `hotfix/*` | Production release or urgent production fix. |
+
+Hotfix pull requests SHOULD be opened in this order:
+
+```text
+hotfix/* -> preview
+hotfix/* -> development
+hotfix/* -> master
+```
+
+Maintainers MAY approve a direct `hotfix/* -> master` pull request first only for critical production incidents where immediate release is required.
 
 Before opening a pull request:
 

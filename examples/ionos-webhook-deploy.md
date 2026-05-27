@@ -18,9 +18,9 @@ This example shows a simple webhook-based deployment model for IONOS hosting.
 feature/*   -> preview       -> preview.example.com
 feature/*   -> development   -> staging.example.com
 development -> master        -> www.example.com
-hotfix/*    -> master        -> www.example.com
-hotfix/*    -> development   -> staging.example.com
 hotfix/*    -> preview       -> preview.example.com
+hotfix/*    -> development   -> staging.example.com
+hotfix/*    -> master        -> www.example.com
 ```
 
 ## Example Webhook Payload

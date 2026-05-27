@@ -1,0 +1,26 @@
+%%{init: { "theme": "base", "themeVariables": { "actorBkg": "#ffffff", "actorBorder": "#333333", "actorTextColor": "#111111", "signalColor": "#333333", "signalTextColor": "#111111", "noteBkgColor": "#ffffff", "noteTextColor": "#111111" } }}%%
+sequenceDiagram
+    autonumber
+
+    box rgba(185, 227, 249, 0.5) master
+        participant master as master
+    end
+    box rgba(185, 144, 232, 0.5) development
+        participant development as development
+    end
+    box rgba(83, 201, 143, 0.5) feature/report-export
+        participant feature as feature/report-export
+    end
+
+    master-->>master: production tag<br/>v1.0.0
+    master-->>development: stable base
+
+    development->>feature: branch<br/>feature/report-export
+    feature->>feature: feature work
+    feature->>feature: ready for release
+
+    feature->>development: merge accepted feature
+    development-->>development: release candidate<br/>v1.1.0-rc.1
+
+    development->>master: production release
+    master-->>master: tag v1.1.0

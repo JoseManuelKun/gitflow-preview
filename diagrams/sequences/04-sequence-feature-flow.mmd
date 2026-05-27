@@ -1,0 +1,31 @@
+%%{init: { "theme": "base", "themeVariables": { "actorBkg": "#ffffff", "actorBorder": "#333333", "actorTextColor": "#111111", "signalColor": "#333333", "signalTextColor": "#111111", "noteBkgColor": "#ffffff", "noteTextColor": "#111111" } }}%%
+sequenceDiagram
+    autonumber
+
+    box rgba(185, 144, 232, 0.5) 
+        participant development as development
+    end
+    box rgba(83, 201, 143, 0.5) 
+        participant feature as feature/docs-diagrams
+    end
+    box rgba(97, 216, 209, 0.5) 
+        participant preview as preview
+    end
+
+    development->>feature: new branch<br/>feature/docs-diagrams
+    feature->>feature: feature work
+    feature->>feature: review ready
+
+    feature->>preview: validate feature
+    preview-->>preview: deploy preview build
+    preview-->>feature: feedback
+
+    feature->>feature: more feature work
+    feature->>feature: fix validation feedback
+
+    feature->>preview: re-validate feature
+    preview-->>feature: approval<br/>v1.1.0-preview.1
+
+    feature->>development: accept feature
+    development-->>development: release candidate<br/>v1.1.0-rc.1
+    Note over preview,development: preview MUST NOT merge into development.
