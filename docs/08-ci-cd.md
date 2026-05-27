@@ -60,9 +60,9 @@ Automation SHOULD make the correct path easy:
 feature/*   -> preview       -> preview deployment
 feature/*   -> development   -> integration deployment
 development -> master        -> production deployment
-hotfix/*    -> master        -> production deployment
-hotfix/*    -> development   -> integration deployment
 hotfix/*    -> preview       -> preview deployment
+hotfix/*    -> development   -> integration deployment
+hotfix/*    -> master        -> production deployment
 ```
 
 Automation MUST NOT promote `preview` directly into `development` or production.

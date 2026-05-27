@@ -26,9 +26,9 @@ The approved merge paths are:
 feature/*   -> preview
 feature/*   -> development
 development -> master
-hotfix/*    -> master
-hotfix/*    -> development
 hotfix/*    -> preview
+hotfix/*    -> development
+hotfix/*    -> master
 ```
 
 The prohibited merge path is:
@@ -38,6 +38,8 @@ preview -> development
 ```
 
 `preview` MAY receive feature branches for validation, but it MUST NOT be treated as canonical history. If a feature is accepted, the same `feature/*` branch MUST be merged into `development`.
+
+Hotfixes SHOULD be validated in `preview` before they are synchronized into `development` and released through `master`. For critical incidents, teams MAY release a hotfix to `master` first when production impact requires immediate action.
 
 ## Documentation
 
@@ -54,9 +56,19 @@ preview -> development
 
 ## Diagrams
 
-- [Main Flow](diagrams/main-flow.mmd)
-- [Feature Flow](diagrams/feature-flow.mmd)
-- [Hotfix Flow](diagrams/hotfix-flow.mmd)
+GitFlow Preview provides Git graph and sequence diagram examples for feature delivery, validated hotfixes, and production releases.
+
+Git graphs:
+
+- [Feature Flow Git Graph](diagrams/gitgraph/01-gitgraph-feature-flow.mmd)
+- [Hotfix Flow Git Graph](diagrams/gitgraph/02-gitgraph-hotfix-flow.mmd)
+- [Production Release Git Graph](diagrams/gitgraph/03-gitgraph-production-release.mmd)
+
+Sequence diagrams:
+
+- [Feature Flow Sequence](diagrams/sequences/04-sequence-feature-flow.mmd)
+- [Hotfix Flow Sequence](diagrams/sequences/05-sequence-hotfix-flow.mmd)
+- [Production Release Sequence](diagrams/sequences/06-sequence-production-release.mmd)
 
 ## CI/CD Examples
 

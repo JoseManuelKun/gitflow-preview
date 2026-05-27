@@ -39,9 +39,9 @@ Accepted work MUST move from its original `feature/*` branch into `development`.
 feature/*   -> preview       # validation
 feature/*   -> development   # accepted integration
 development -> master        # production release
-hotfix/*    -> master        # production fix
+hotfix/*    -> preview       # validate urgent fix
 hotfix/*    -> development   # keep integration current
-hotfix/*    -> preview       # keep validation current
+hotfix/*    -> master        # production fix
 ```
 
 ## Audience
