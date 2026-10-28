@@ -29,6 +29,18 @@ This keeps validation separate from canonical integration.
 
 Continue working on the `feature/*` branch or abandon it. Do not merge rejected work into `development`.
 
+## How do I resume a feature after a long pause?
+
+Save pending work, fetch remote updates, and merge `origin/development` into the existing `feature/*` branch. Use `development`, not `preview`, as the stable integration base. `master` represents production and may lack accepted work intended for the next release.
+
+Shared branches SHOULD use merge rather than rewrite published history. Resolve conflicts, run the applicable tests, and repeat required preview validation before acceptance. An earlier approval does not automatically apply to the updated feature.
+
+This maintenance merge does not approve or release the feature. See [Keep a Feature Updated or Resume Paused Work](04-feature-workflow.md#keep-a-feature-updated-or-resume-paused-work) for commands, backup guidance, and conflict recovery.
+
+## What if a production hotfix is missing from `development`?
+
+Teams SHOULD complete the hotfix's synchronization into `development` through the [hotfix workflow](06-hotfix-workflow.md), then refresh the feature from `origin/development`. Updating only the feature from `master` leaves the stable integration branch incomplete.
+
 ## Can multiple features be merged into `preview`?
 
 Yes. `preview` MAY contain multiple features for combined validation. Teams SHOULD be aware that this can make it harder to identify which feature caused a defect.
